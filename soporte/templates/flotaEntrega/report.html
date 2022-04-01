@@ -1,0 +1,17 @@
+{% extends 'base/base.html' %}
+
+{% block title%}
+Flota Entregas Reporte
+{% endblock%}
+
+{% block buttons%}
+<button type="button" class="btn btn-secondary" onclick="window.location.href='{% url 'flotaEntrega_index' %}'">Volver</button>
+{% endblock%}
+
+{% block content %} 
+<form action="{% url 'flotaEntrega_reportDownload'%}" method="get">
+    <input type="date" name="startDate" id="">
+    <input type="date" name="endDate" id="">
+    <button type="submit">Descargar</button>
+</form>
+{% endblock %}

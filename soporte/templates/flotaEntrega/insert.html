@@ -1,0 +1,18 @@
+{% extends 'base/base.html' %}
+
+{% block title%}
+Flota Entregas Cargar
+{% endblock%}
+
+{% block buttons%}
+<button type="button" class="btn btn-secondary" onclick="window.location.href='{% url 'flotaEntrega_index' %}'">Volver</button>
+{% endblock%}
+
+{% block content %} 
+    <h4>Importar Entregas Flotas Desde Excel</h4>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="xlsFile" id="">
+        <button type="submit">Subir</button>
+    </form>
+{% endblock %}

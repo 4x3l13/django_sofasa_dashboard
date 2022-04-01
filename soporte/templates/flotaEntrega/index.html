@@ -1,0 +1,96 @@
+{% extends 'base/base.html' %}
+
+{% block title%}
+Lista de Entregas Flotas
+{% endblock%}
+
+{% block buttons%}
+<button type="button" class="btn btn-primary" onclick="window.location.href='{% url 'flotaEntrega_insert' %}'">Importar</button>
+{% endblock%}
+
+{% block content %} 
+{% if object_list %}
+    <table id="datatablesSimple">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>VIN</th>
+                <th>PLACA</th>
+                <th>FECHA VENTA</th>
+                <th>FECHA ENTREGA</th>
+                <th>ESTADO</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th>ID</th>
+                <th>VIN</th>
+                <th>PLACA</th>
+                <th>FECHA VENTA</th>
+                <th>FECHA ENTREGA</th>
+                <th>ESTADO</th>
+            </tr>
+        </tfoot>
+        <tbody>
+            {% for entrega in object_list %}
+            <tr>
+                <td>{{ entrega.id }}</td>
+                <td>{{ entrega.vin }}</td>
+                <td>{{ entrega.placa }}</td>
+                <td>{{ entrega.fecha_venta }}</td>
+                <td>{{ entrega.fecha_entrega }}</td>
+                <td>{{ entrega.estado }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <!-- <div class="table-responsive">
+        <table class="table table-striped table-hover table-sm">
+            <thead>
+                <tr>
+                    <td>ID</td>
+                    <td>VIN</td>
+                    <td>PLACA</td>
+                    <td>FECHA VENTA</td>
+                    <td>FECHA ENTREGA</td>
+                    <td>CLIENTE JURIDICO</td>
+                    <td>ID CLIENTE JURIDICO</td>
+                    <td>CONTACTO JURIDICO</td>
+                    <td>IDENTIFICACION CONTACTO</td>
+                    <td>CIUDAD CONTACTO</td>
+                    <td>DIRECCION CONTACTO</td>
+                    <td>TELEFONO CONTACTO</td>
+                    <td>CELULAR CONTACTO</td>
+                    <td>EMAIL CONTACTO</td>
+                    <td>CARGO CONTACTO</td>
+                    <td>ESTADO</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entrega in object_list %}
+                <tr>
+                    <td>{{ entrega.id }}</td>
+                    <td>{{ entrega.vin }}</td>
+                    <td>{{ entrega.placa }}</td>
+                    <td>{{ entrega.fecha_venta }}</td>
+                    <td>{{ entrega.fecha_entrega }}</td>
+                    <td>{{ entrega.cliente_juridico }}</td>
+                    <td>{{ entrega.identificacion_juridico }}</td>
+                    <td>{{ entrega.contacto_juridico }}</td>
+                    <td>{{ entrega.identificacion_contacto }}</td>
+                    <td>{{ entrega.ciudad_contacto }}</td>
+                    <td>{{ entrega.direccion_contacto }}</td>
+                    <td>{{ entrega.telefono_contacto }}</td>
+                    <td>{{ entrega.celular_contacto }}</td>
+                    <td>{{ entrega.email_contacto }}</td>
+                    <td>{{ entrega.cargo_contacto }}</td>
+                    <td>{{ entrega.estado }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div> -->
+    {% else %}
+    <h4> No hay registros</h4>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Soporte</title>
+    <link rel='stylesheet' href= "{% static 'css/bootstrap.min.css' %}">
+    <script src="{% static 'js/sweetalert2.all.min.js' %}"></script>
+</head>
+<body background="{% static 'image/fondo.jpg' %}">
+    <div id="template-bg-1">
+        <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center">
+            <div class="card p-4 text-light bg-dark mb-5">
+                <div class="card-header">
+                    <h3>Iniciar Sesión Dashboard</h3>
+                </div>
+                <div class="card-body w-100">
+                    <form id="frmLogin" action="" method="post">
+                        {% csrf_token %}
+                        <div class="input-group form-group mt-3">
+                            <div class="bg-secondary rounded-start">
+                                <span class="m-3"><i class="fa fa-user"></i></span>
+                            </div>
+                            <input type="text" class="form-control" placeholder="Usuario" name="username" autocomplete="off" autofocus requiered>
+                        </div>
+                        <div class="input-group form-group mt-3">
+                            <div class="bg-secondary rounded-start">
+                                <span class="m-3"><i class="fas fa-key mt-2"></i></span>
+                            </div>
+                            <input type="password" class="form-control" placeholder="Clave" name="password" requiered>
+                        </div>
+                        <div class="form-group mt-3">
+                            <input type="submit" value="Acceder" class="btn bg-secondary float-end text-white w-100" name="login-btn">
+                        </div>
+                    </form>
+                    <div class="card-footer">
+                        <center>
+                            <div class="text-primary">
+                                <br/>
+                                <a href="#">Olvidó su Clave?</a>
+                            </div>
+                        </center>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        {% if form.errors %}
+            var errors = '';
+            {% for field in form %}
+                {% for error in field.errors %}
+                    errors += '{{field.label}}: {{ error }} <br>';
+                {% endfor %}
+            {% endfor %}
+            if(errors === ''){
+                {% for error in form.non_field_errors %}
+                    errors += '{{ error }}';
+                {% endfor %}
+            };
+            Swal.fire({
+                icon: 'error',
+                title: 'Alerta',
+                html: errors,
+                {% comment %} footer: '<a href="#">Why do I have this issue?</a>' {% endcomment %}
+            })
+        {% endif %}
+    </script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    
+</body>
+</html>

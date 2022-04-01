@@ -1,0 +1,50 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% block scripts%}
+<script src="{% static 'js/sweetalert2.all.min.js' %}"></script>
+{% endblock%}
+
+{% block title%}
+Reporte Encuestas VN
+{% endblock%}
+
+{% block button1%}
+<button type="button" class="btn btn-secondary" onclick="window.location.href='{% url 'index' %}'">
+    <i class="far fa-arrow-alt-circle-left"></i>Volver
+</button>
+{% endblock%}
+
+{% block content %} 
+<form action="{% url 'encuesta_download'%}" method="post" id="frmEncuestaIndex">
+    {% csrf_token %}
+    <label for="period">Periodo</label>
+    <select name="period" class="form-select" aria-label="Default select example" required>
+        <option value="">Seleccionar</option>
+        {% for row in rows %}
+        <option value="{{ row.0 }}">{{ row.0 }}</option>
+        {% endfor %}
+    </select>
+    <br/>
+    <label for="chart">Tipo de Gráfico</label>
+    <select name="chart" class="form-select" aria-label="Default select example" required>
+        <option value="">Seleccionar</option>
+        <option value="bar">Barras</option>
+        <option value="line">Lineas</option>
+        <option value="pie">Torta</option>
+        <option value="doughnut">Donut</option>
+    </select>
+    <br/>
+    <button id="btnDownload" type="submit" class="btn btn-success">
+        <i class="fas fa-download"></i>Descargar
+    </button>
+    <button id="btnChart" type="submit" class="btn btn-info" formaction="{% url 'encuesta_chart'%}">
+        <i class="fas fa-chart-area"></i>Ver Gráfico
+    </button>
+</form>
+{% endblock %}
+
+{% block extrajs%}
+
+{% endblock %}

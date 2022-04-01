@@ -1,0 +1,77 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% block scripts%}
+<script src="{% static 'js/sweetalert2.all.min.js' %}"></script>
+{% endblock%}
+
+{% block title%}
+Buscar Encuestas Por VIN
+{% endblock%}
+
+{% block button1%}
+{%if rows %}
+<button type="button" class="btn btn-secondary" onclick="window.location.href='{% url 'encuesta_search' %}'">
+    <i class="far fa-arrow-alt-circle-left"></i>Volver
+</button>
+{% else %}
+<button type="button" class="btn btn-secondary" onclick="window.location.href='{% url 'index' %}'">
+    <i class="far fa-arrow-alt-circle-left"></i>Volver
+</button>
+{% endif %}
+{% endblock%}
+
+{% block content %} 
+<form method="post">
+    {% csrf_token %}
+    {%if rows %}
+    <table id="datatablesSimple">
+        <thead>
+            <tr>
+                {% for col in columns %}
+                <th>{{col}}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                {% for col in columns %}
+                {% comment %} <th>ID</th>
+                <th>VIN</th>
+                <th>PLACA</th>
+                <th>FECHA VENTA</th>
+                <th>FECHA ENTREGA</th>
+                <th>ESTADO</th> {% endcomment %}
+                <th>{{col}}</th>
+                {% endfor %}
+            </tr>
+        </tfoot>
+        <tbody>
+            {% for row in rows %}
+            <tr>
+                <td>{{row.0}}</td>
+                <td>{{row.1}}</td>
+                <td>{{row.2}}</td>
+                <td>{{row.3}}</td>
+                <td>{{row.4}}</td>
+                <td>{{row.5}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <label for="VIN">VIN</label>
+    <input type="text" minlength="17" maxlength="17" name="VIN" class="form-control", focus="", required="", autocomplete="off">
+
+    <br/>
+    <button id="btnDownload" type="submit" class="btn btn-success">
+        <i class="fa fa-search"></i>Buscar
+    </button>
+    {% endif %}
+</form>
+{% endblock %}
+
+{% block extrajs%}
+
+{% endblock %}
