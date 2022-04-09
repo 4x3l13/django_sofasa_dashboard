@@ -11,7 +11,7 @@ Buscar Encuestas Por VIN
 {% endblock%}
 
 {% block button1%}
-{%if rows %}
+{%if data %}
 <button type="button" class="btn btn-secondary" onclick="window.location.href='{% url 'encuesta_search' %}'">
     <i class="far fa-arrow-alt-circle-left"></i>Volver
 </button>
@@ -25,27 +25,23 @@ Buscar Encuestas Por VIN
 {% block content %} 
 <form method="post">
     {% csrf_token %}
-    {%if rows %}
+    {%if data %}
+
     <table id="datatablesSimple">
         <thead>
             <tr>
-                {% for col in columns %}
-                <th>{{col}}</th>
+                {% for row in data%}
+                {% for key in row %}
+                    <th>{{key}}</th>
+                {% endfor %}
                 {% endfor %}
             </tr>
         </thead>
-        <tfoot>
-            <tr>
-                {% for col in columns %}
-                <th>{{col}}</th>
-                {% endfor %}
-            </tr>
-        </tfoot>
         <tbody>
-            {% for row in rows %}
+            {% for row in data%}
             <tr>
-                {% for col in row %}
-                <td>{{col }}</td>
+                {% for key,value in row.items%}
+                <th>{{value}}</th>
                 {% endfor %}
             </tr>
             {% endfor %}
