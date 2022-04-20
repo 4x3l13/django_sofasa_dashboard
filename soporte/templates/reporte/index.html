@@ -1,0 +1,71 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% block scripts%}
+<script src="{% static 'js/sweetalert2.all.min.js' %}"></script>
+{% endblock%}
+
+{% block title%}
+Listado de Reportes
+{% endblock%}
+
+{% block button1%}
+<button type="button" class="btn btn-secondary" onclick="window.location.href='{% url 'index' %}'">
+    <i class="far fa-arrow-alt-circle-left"></i>Volver
+</button>
+{% endblock%}
+{% block button2%}
+<button type="button" class="btn btn-primary" onclick="window.location.href='{% url 'reporte_insert' %}'">
+    <i class="fas fa-pen"></i>Nuevo
+</button>
+{% endblock%}
+
+{% block content %} 
+<form  method="get" >
+    <table id="datatablesSimple">
+        <thead>
+            <tr>
+                {% for key in object_list.0 %}
+                <th>
+                    {% if key == 'id'%}
+                     Acciones
+                    {% else %}
+                        {{key}}
+                    {% endif %}
+                </th>
+                {% endfor %}
+            </tr>
+        </thead>
+        {% if object_list%}
+        <tbody>
+            {% for row in object_list%}
+            <tr>
+                {% for key,value in row.items%}
+                <td>
+                {% if key == 'id'%}
+                    <button type="button" class="btn btn-info" onclick="window.location.href='{% url 'reporte_edit' value %}'">
+                        <i class="fa fa-edit"></i>Editar
+                    </button>
+                    <button type="button" class="btn btn-danger" onclick="window.location.href='{% url 'reporte_delete' value %}'">
+                        <i class="fa fa-trash"></i>Eliminar
+                    </button>
+                {% else %}
+                    {{value}}
+                {% endif %}
+                </td>
+                {% endfor %}
+
+            </tr>
+            {% endfor %}
+        </tbody>
+        {% else %}
+        no hay registros
+    {% endif %}
+    </table>   
+</form>
+{% endblock %}
+
+{% block extrajs%}
+
+{% endblock %}

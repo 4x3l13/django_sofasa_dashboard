@@ -1,0 +1,35 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% block extracss %} 
+{% endblock %}
+
+{% block title%}
+Eliminar Reporte
+{% endblock%}
+
+{% block button1%}
+<button type="button" class="btn btn-secondary" onclick="window.location.href='{% url 'reporte_index' %}'">
+    <i class="far fa-arrow-alt-circle-left"></i>Volver
+</button>
+{% endblock%}
+
+{% block scripts %}
+<script src="{% static 'js/sweetalert2.all.min.js' %}"></script>
+{% endblock %}
+
+{% block content %} 
+    <form method="post">
+        {% csrf_token %}
+        ¿Desea eliminar el registro de {{object_list.name}}?
+        <div class="form-group mt-3">
+            <input type="hidden" value="{{object_list.id}}" name="id">
+            <input type="submit" value="Si, Eliminar" class="btn btn-danger float-end text-white w-100">
+        </div>
+    </form>
+{% endblock %}
+
+{% block extrajs %}
+
+{% endblock %}

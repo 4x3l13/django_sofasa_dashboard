@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'apps.encuesta',
     'apps.usuario',
     'apps.myapi',
+    'apps.reporte',
     'rest_framework',
     'import_export',
 ]

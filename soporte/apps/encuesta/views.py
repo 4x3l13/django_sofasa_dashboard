@@ -5,7 +5,6 @@ from django.views.generic import TemplateView
 from django.db import connection
 from openpyxl import Workbook
 from django.http.response import HttpResponse
-
 from .services import get_data_api
 
 # Create your views here.
@@ -44,12 +43,6 @@ class EncuestaSearchAPI(LoginRequiredMixin,PermissionRequiredMixin,TemplateView)
         context = self.get_context_data(**kwargs)
         context["data"] = get_data_api(url)
         return render(request,self.template_name,context)
-
-    # def get_context_data(self, *args, **kwargs):
-    #     context = {
-    #         'droplets' : get_data_api('http://127.0.0.1:8000/myapi/apiEncuestaBuscarVin/?format=json&vin=93YMAF4CCNJ817644'),
-    #     }
-    #     return context
 
 class EncuestaChart(LoginRequiredMixin,PermissionRequiredMixin,TemplateView):
     permission_required = ('encuesta.graph_encuesta')

@@ -1,0 +1,64 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% block extracss %} 
+{% endblock %}
+
+{% block title%}
+Registrar Reporte
+{% endblock%}
+
+{% block button1%}
+<button type="button" class="btn btn-secondary" onclick="window.location.href='{% url 'reporte_index' %}'">
+    <i class="far fa-arrow-alt-circle-left"></i>Volver
+</button>
+{% endblock%}
+
+{% block scripts %}
+<script src="{% static 'js/sweetalert2.all.min.js' %}"></script>
+{% endblock %}
+
+{% block content %} 
+<form action="" method="post">
+    <form method="post">
+        {% csrf_token %}
+        <input type="hidden" value="{{object_list.id}}" name="id">
+        <label for="name" class="form-label">Nombre:</label>
+        <input type="text" name='name' value='{{object_list.name}}' class='form-control' autocomplete= 'nope' required autofocus>
+        <label for="name" class="form-label">Descripción:</label>
+        <textarea name='description' class='form-control' autocomplete='nope' required rows="4">{{object_list.description}}</textarea>
+        <label for="name" class="form-label">Procedimiento Almacenado:</label>
+        <input type="text" name='stored_procedure' value='{{object_list.stored_procedure}}' class='form-control' autocomplete= 'nope' required>
+        <label for="name" class="form-label">Parametros:</label>
+        <textarea name='parameters' class='form-control' autocomplete='nope' required rows="4">{{object_list.parameters}}</textarea>
+        <div class="form-group mt-3">
+            <input type="submit" value="Registrar" class="btn btn-success float-end text-white w-100" name="login-btn">
+        </div>
+    </form>
+</form>
+{% endblock %}
+
+{% block extrajs %}
+<script>
+    {% if form.errors %}
+        var errors = '';
+        {% for field in form %}
+            {% for error in field.errors %}
+                errors += '{{field.label}}: {{ error }} <br>';
+            {% endfor %}
+        {% endfor %}
+        if(errors === ''){
+            {% for error in form.non_field_errors %}
+                errors += '{{ error }}';
+            {% endfor %}
+        };
+        Swal.fire({
+            icon: 'error',
+            title: 'Alerta',
+            html: errors,
+            {% comment %} footer: '<a href="#">Why do I have this issue?</a>' {% endcomment %}
+        })
+    {% endif %}
+</script> 
+{% endblock %}

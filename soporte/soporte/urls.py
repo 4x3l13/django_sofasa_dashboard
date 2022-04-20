@@ -27,5 +27,6 @@ urlpatterns = [
     path('encuesta/', include('apps.encuesta.urls'),name='encuesta'),
     path('usuario/', include('apps.usuario.urls'),name='usuario'),
     path('myapi/',include('apps.myapi.urls'),name='myapi'),
+    path('reporte/',include('apps.reporte.urls'),name ='reporte')
     # path('flotaEntrega/', include('apps.flotaEntrega.urls'),name='flotaEntrega'),
 ]

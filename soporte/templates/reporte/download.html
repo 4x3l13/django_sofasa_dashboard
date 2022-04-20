@@ -1,0 +1,71 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% block scripts%}
+<script src="{% static 'js/sweetalert2.all.min.js' %}"></script>
+{% endblock%}
+
+{% block title%}
+Reportes Para Descargar
+{% endblock%}
+
+{% block button1%}
+<button type="button" class="btn btn-secondary" onclick="window.location.href='{% url 'index' %}'">
+    <i class="far fa-arrow-alt-circle-left"></i>Volver
+</button>
+{% endblock%}
+
+{% block content %} 
+<form  method="post" >
+    {% if object_list%}
+    {% csrf_token %}
+    <label for="period">Reporte</label>
+    <select id = "report" name="report" class="form-select" aria-label="Default select example" required onchange="drawParameters();">
+        <option value="">Seleccionar</option>
+        {% for row in object_list%}
+        <option value="{{ row.id }}">{{ row.name }}</option>
+        {% endfor %}
+    </select>
+    <div id="divparameters">
+    </div>
+    <br>
+    <input type="submit" value="Descargar" class="btn btn-success float-end text-white w-100" >
+    {% else %}
+        no hay registros
+    {% endif %} 
+</form>
+{% endblock %}
+
+{% block extrajs%}
+<script>
+    function drawParameters(){
+        var report = document.getElementById('report').value;
+        var div = document.getElementById('divparameters');
+        {% for row in object_list %}
+        var id = '{{row.id}}';
+        if(id==report){
+            var parameters ='{{row.parameters}}';
+            var sp = '{{row.stored_procedure}}';
+            var report = '{{row.name}}'
+            var description = '{{row.description}}'
+            parameters = htmlDecode(parameters)
+            parameters = JSON.parse(parameters)
+            div.innerHTML = ''
+            div.innerHTML += '<input type="hidden" value="'+ sp +'" name="sp">'
+            div.innerHTML += '<input type="hidden" value="'+ sp +'" name="name_report">'
+            div.innerHTML += description + '<br><br>'
+            for( parameter in parameters){
+                div.innerHTML += '<label class="form-label">'+ parameter +'</label>'
+                div.innerHTML += parameters[parameter] 
+            }
+        }
+        {% endfor %}
+        
+    }
+    function htmlDecode(str) {
+        const doc = new DOMParser().parseFromString(str, "text/html");
+        return doc.documentElement.textContent;
+    }
+</script>
+{% endblock %}
